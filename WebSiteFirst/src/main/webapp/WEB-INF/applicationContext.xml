@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans.xsd
+               http://www.springframework.org/schema/aop
+               http://www.springframework.org/schema/aop/spring-aop.xsd">  
+  	<!-- bean product -->
+	<bean id="employeebean" class="entities.Employee">
+		<property name="id" value="1"></property>
+		<property name="name" value="Nguyen Van Nhat"></property>
+		<property name="salary" value="200.5"></property>
+	</bean>
+	<!-- connection database -->
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:sqlserver://nhatteamnew.database.windows.net:1433;database=nhatteamnew;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"></property>
+		<property name="username" value="nhatteamnew"></property>
+		<property name="password" value="Aptech@2016"></property>
+<!-- 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property> -->
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/website"></property> -->
+<!-- 		<property name="username" value="root"></property> -->
+<!-- 		<property name="password" value=""></property> -->
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+	
+	<!-- Bean data employee -->
+	<bean id="edao" class="model.handlingEmployee">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="edaoproduct" class="model.handlingProduct">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<!--  Bean data Demo -->
+	<bean id="handlingDemo" class="model.handlingDemo">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="edaocategory" class="model.handlingCategory">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="edaoorder" class="model.handlingOrder">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<!-- JavaMail -->
+<!-- 	<bean id="propertisMail" class="org.springframework.mail.javamail.JavaMailSenderImpl"> -->
+<!-- 		<property name="host" value="smtp.gmail.com"></property> -->
+<!-- 		<property name="port" value="465"></property> -->
+<!-- 		<property name="username" value="nhatnv7192@gmail.com"></property> -->
+<!-- 		<property name="password" value="nhat1234"></property> -->
+<!-- 		<property name="javaMailProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="mail.smtp.auth">true</prop> -->
+<!-- 				<prop key="mail.smtp.starttls.enable">true</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="emailService" class="contextApplication.MailHelper"> -->
+<!-- 		<property name="props" ref="propertisMail"></property> -->
+<!-- 	</bean> -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+</beans>
+ 
